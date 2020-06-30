@@ -18,14 +18,15 @@ class HomePage(View):
             'form': self.form,
             'subscribers': self.model.objects.all(),
         }
-        #send_email_to_all.delay()
         return render(request, self.template_name, context=context)
 
     def post(self, request):
-        email = request.POST['email']
-        try:
-            add_email_to_subscribers.delay(email)
-            messages.info(self.request, 'Your email has been sent to us. It might not be seen in the subscribers table. If so, try to refresh the page.')
-        except:
-            messages.warning(self.request, 'Something went wrong! Please try again later.')
+        form = AddEmailToSubscribersForm(request.POST)
+        if form.is_valid():
+            email = request.POST['email']
+            try:
+                doer = add_email_to_subscribers.delay(email)
+                messages.success(request, 'We recived your email. It might not exist in the subscribers table. If so, refresh the page.')
+            except Exception as e:
+                messages.warning(request, 'Something went wrong! Please try again later.')
         return redirect('home')
