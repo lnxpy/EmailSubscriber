@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .forms import AddEmailToSubscribersForm
-from .tasks import add_email_to_subscribers, send_email_to_all
+from .tasks import add_email_to_subscribers, send_email_to_all, flush_database
 
 
 class HomePage(View):
@@ -28,5 +28,22 @@ class HomePage(View):
                 doer = add_email_to_subscribers.delay(email)
                 messages.success(request, 'We recived your email. It might not exist in the subscribers table. If so, refresh the page.')
             except Exception as e:
-                messages.warning(request, 'Something went wrong! Please try again later.')
+                messages.error(request, 'Something went wrong! Please try again later.')
         return redirect('home')
+
+
+class FlushDBView(View):
+    template_name = 'core/flush.html'
+
+    def get(self, request):
+        context = {}
+        flush_database.delay()
+        return render(request, self.template_name, {})
+
+class SendToAllView(View):
+    template_name = 'core/sendtoall.html'
+
+    def get(self, request):
+        context = {}
+        send_email_to_all.delay()
+        return render(request, self.template_name, {})
