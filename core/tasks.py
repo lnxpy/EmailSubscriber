@@ -17,7 +17,7 @@ def send_email_to_all(latency=0):
     send_mail(
         'This is Title',
         'This is Body',
-        'alirezayahyapour80@gmail.com', # This is the sender email => Gets from settings.py
+        'sender@something.com', # This is the sender email => Gets from settings.py
         [mail.email for mail in subscribers],
         fail_silently = False,
     )
