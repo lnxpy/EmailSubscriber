@@ -21,6 +21,11 @@ You can add new subscribers by writing their emails in the post form. Once you w
 ### Danger Zone
 In this section, you have a bunch of tools to manage your subscribers.
 
+<p align="center">
+  <img src="https://github.com/lnxpy/EmailSubscriber/blob/master/pics/p3.png"/>
+  <small>Danger Zone</small>
+</p>
+
 #### 1. Send 2 All
 By clicking this button, you run a celery task which tries to send an email (which you have configured in `task.py`) to every single subscriber. Once you ran this part, emails will be shown in their inbox as below.
 
