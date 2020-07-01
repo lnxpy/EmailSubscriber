@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+     <meta content='maximum-scale=1.0, initial-scale=1.0, width=device-width' name='viewport'>
     <title>Email Subscriber</title>
 
     <!-- CSS only -->
@@ -15,12 +16,12 @@
   </head>
   <body>
     <div class="container-lg p-5">
-      <h3>Email Subscription <span class="badge badge-pill badge-primary">Simple Project With <span><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Celery_logo.png" width="20px" alt="Celery"></span> + <span><img src="https://jpadilla.github.io/rabbitmqapp/assets/img/icon.png" width="20px" alt="RabbitMQ"></span></span> <span class="badge badge-pill badge-success">Server is up &#128526;</span></h3>
+      <h3>Email Subscriber <span class="badge badge-pill badge-primary">Simple Project With <span><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Celery_logo.png" width="20px" alt="Celery"></span> + <span><img src="https://jpadilla.github.io/rabbitmqapp/assets/img/icon.png" width="20px" alt="RabbitMQ"></span></span> <span class="badge badge-pill badge-success">Server is up &#128526;</span></h3>
       <hr>
 
       <p class="text-muted">This project has been created to test the power of Celery and RabbitMQ when they start working together.<br><br>
-      How it Works?<br>Imagine your are the admin of this page, so you can add emails, manage them and send them any message you want.<br>Before using this console, become sure you've already configured <code>settings.py</code> truly.<br>
-      Email Subscriber uses Bootstrap4 for its main panel. Once you turned on your network data, all CDNs will be cached up.<br><br> Now, you've got a prettier UI, which is awesome.</p><br>
+      How it Works?<br>Imagine your are the admin of this page, so you can add emails, manage them and send them any message you want.<br>Before using this console, become sure you've already configured both <code>settings.py</code> and <code>tasks.py</code> truly.<br>
+      Email Subscriber uses Bootstrap4 for its main panel. Once you turned on your network data, all CDNs will be cached up.<br><br> <b>For better experience, connect to your network</b>.</p><br>
 
       <div class="container-fluid p-4">
         <h5>Add Subscriber</h5><br>
@@ -45,11 +46,12 @@
 
       <div class="container-fluid p-4">
         <h5>Subscribers Table</h5><br>
+
         <table class="table">
           <thead class="bg-primary text-white">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Address</th>
+              <th scope="col">Email</th>
               <th scope="col">Last Edited</th>
               <th scope="col">Created Date</th>
             </tr>
@@ -59,11 +61,7 @@
             <tr>
               <th scope="row">{{subscriber.id}}</th>
               <td>{{subscriber.email}}</td>
-              {% if subscriber.last_edited %}
               <td>{{ subscriber.last_edited | timesince }} ago</td>
-              {% else %}
-              <td>--</td>
-              {% endif %}
               <td>{{subscriber.created_date}}</td>
             </tr>
             {% endfor %}
@@ -74,7 +72,8 @@
               <td>Count of Subscribers: {{subscribers.count}}</td>
             </tr>
           </tbody>
-      </table>
+        </table>
+
       </div>
 
       <div class="container-fluid p-4">
@@ -83,10 +82,10 @@
           <div class="card-body text-danger">
             <h5 class="card-title">Send to All</h5>
             <p class="card-text">With the help of this option, you are going to be able to send message to every single subscriber.<br> Mostly, this part uses for advertisement purposes.</p>
-            <button class="btn btn-danger" type="submit" name="button">Sent to All</button><hr>
+            <button class="btn btn-danger" type="submit" name="button" onclick="window.location.replace({% url 'sendtoall' %});">Sent to All</button><hr>
             <h5 class="card-title">Flush Subscribers</h5>
             <p class="card-text">Remove all exist subscribers from DB.</p>
-            <button class="btn btn-danger" type="submit" name="button">Remove All</button>
+            <button class="btn btn-danger" type="submit" name="button" onclick="window.location.replace({% url 'flush' %});">Remove All</button>
           </div>
         </div>
       </div>
