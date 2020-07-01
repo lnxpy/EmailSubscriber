@@ -20,4 +20,6 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomePage.as_view(), name='home'),
+    path('flush/', views.FlushDBView.as_view(), name='flush'),
+    path('sendtoall/', views.SendToAllView.as_view(), name='sendtoall'),
 ]
