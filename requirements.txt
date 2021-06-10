@@ -2,7 +2,7 @@ amqp==2.6.0
 asgiref==3.2.10
 billiard==3.6.3.0
 celery==4.4.6
-Django==3.0.7
+Django==3.1.12
 django-crispy-forms==1.9.1
 future==0.18.2
 kombu==4.6.11
